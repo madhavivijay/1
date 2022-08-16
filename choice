@@ -1,36 +1,33 @@
 pipeline {
-    agent { label 'master' }
-    parameters {
-        choice(choices: ['main', 'cslave'], description: 'choose the label', name: 'choice1')
-        }
+    agent none 
     stages {
-        stage('ALL') {
+        stage('build') {
+            agent { label 'jslave' }
+            steps {
+                    echo "build"
+            }
+        }
+        stage('deploy') {
+            agent { label 'cslave' } 
+            steps {
+                echo "deploy"
+            }
+        }
+        stage('test') {
             parallel {
-                 script {
-                     if (params.choice1=='main')
-                        {
-                        stage('build') { 
-                             steps {
-                                 sh''' 
-                                 echo "build stage"
-                                 sleep 5
-                                 '''
-                 } 
-             }
-                stage('deploy') {
+                stage('test1') {
+                    agent { label 'master' } 
                     steps {
-                         sh'''
-                          echo "deploy stage"
-                          sleep 5
-                         '''
-                  }
-             }
-             }
-            else {
-                        echo "skip both steps"
-                        }   
-         }
-     }
-   }     
- }
+                        sh 'echo "test1"'
+                    }
+                }
+                stage('test2') {
+                    agent { label 'master' } 
+                    steps {
+                        sh 'echo "test2"'
+                    }
+                }
+            }   
+        }    
+    }
 }
