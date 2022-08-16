@@ -10,7 +10,10 @@ pipeline {
         stage('deploy') {
             agent { label 'cslave' } 
             steps {
-                echo "deploy"
+                sh '''
+                    echo "deploy"
+                    slepp 5
+                    '''
             }
         }
         stage('test') {
