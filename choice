@@ -4,7 +4,7 @@ pipeline {
         stage('main')
         {
         parallel{
-        stage('test1){
+        stage('test1'){
         when{
         branch 'master'
         }
