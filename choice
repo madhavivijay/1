@@ -6,13 +6,15 @@ pipeline {
     stages {
         stage('ALL') {
             parallel {
-                stage('build') { 
-                    steps {
-                        if (param
-                         sh''' 
-                            echo "build stage"
-                            sleep 5
-                         '''
+                 script {
+                     if (params.choice1=='main')
+                        {
+                        stage('build') { 
+                             steps {
+                                 sh''' 
+                                 echo "build stage"
+                                 sleep 5
+                                 '''
                  }
              }
                 stage('deploy') {
@@ -26,4 +28,6 @@ pipeline {
          }
      }
    }     
+}
+}
 }
