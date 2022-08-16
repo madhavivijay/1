@@ -15,7 +15,9 @@ pipeline {
                                  echo "build stage"
                                  sleep 5
                                  '''
-                 }
+                 } else {
+                        echo " skip both steps"
+                        }
              }
                 stage('deploy') {
                     steps {
