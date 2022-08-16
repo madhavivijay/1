@@ -20,14 +20,14 @@ pipeline {
             }
         }
         stage('test') {
-            parallel {
                    script {
-                        if( params.branch == 'master') 
+                        if (params.branch == 'master') 
                         {
-                    stage('test1') {
-                    agent { label 'master' } 
-                    steps {
-                        sh 'echo "test1"'
+                        parallel {
+                        stage('test1') {
+                        agent { label 'master' } 
+                             steps {
+                                sh 'echo "test1"'
                     }
                 }
                 stage('test2') {
@@ -39,7 +39,7 @@ pipeline {
                 }
                 else {
                     echo "this is not master branch"
-                    }
+                 }
             }   
         }    
     }
