@@ -1,7 +1,7 @@
 pipeline {
     agent none 
     parameters {
-        choice(choices: ['master', 'cslave', 'jslave'], description: 'choose the label', name: 'choice1')
+        choice(choices: ['main', 'master'], description: 'choose the branch', name: 'branch')
         }
     stages {
         stage('build') {
@@ -21,7 +21,10 @@ pipeline {
         }
         stage('test') {
             parallel {
-                stage('test1') {
+                   script {
+                        if( params.branch == 'master') 
+                        {
+                    stage('test1') {
                     agent { label 'master' } 
                     steps {
                         sh 'echo "test1"'
@@ -32,7 +35,9 @@ pipeline {
                     steps {
                         sh 'echo "test2"'
                     }
-                }
+                } else {
+                    echo "this is not master branch"
+                    }
             }   
         }    
     }
