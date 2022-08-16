@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh '''
                     echo "deploy"
-                    slepp 5
+                    sleep 5
                     '''
             }
         }
