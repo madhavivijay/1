@@ -1,11 +1,11 @@
 pipeline {
     agent none 
     parameters {
-        choice(choices: ['master', 'cslave'], description: 'choose the label', name: 'choice1')
+        choice(choices: ['master', 'cslave', 'jslave'], description: 'choose the label', name: 'choice1')
         }
     stages {
         stage('build') {
-            agent { label 'master' }
+            agent { label 'jslave' }
             steps {
                     echo "build"
             }
