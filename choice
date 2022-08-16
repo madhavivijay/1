@@ -1,1 +1,26 @@
-
+pipeline {
+    agent any
+    stages{
+        stage('main')
+        {
+        parallel{
+        stage('test1){
+        when{
+        branch 'master'
+        }
+            steps{
+            echo "this is my stage test1"
+            }
+            }
+         stage('test2'){
+         when{
+         branch'master'
+         }
+         steps{
+         echo "this is my stage test2"
+         }
+         }
+        }
+        }
+       }
+      } 
